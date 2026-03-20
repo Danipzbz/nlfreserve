@@ -2,13 +2,13 @@ name: iOS Build Check
 
 on:
   push:
-    branches: [ main, master ] # Se ejecuta cuando subas cambios a estas ramas
+    branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
 
 jobs:
   build:
-    runs-on: macos-latest # Aquí es donde ocurre la magia: un Mac real de GitHub
+    runs-on: macos-latest
     
     steps:
       - uses: actions/checkout@v4
@@ -22,5 +22,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Build iOS App (Framework)
-        run: ./gradlew :composeApp:linkDebugFrameworkIosSimulatorArm64
+      # Este paso nos dirá el nombre exacto de la tarea si la siguiente falla
+      - name: List Gradle Tasks
+        run: ./gradlew tasks
+
+      - name: Build iOS App
+        run: ./gradlew :composeApp:assembleDebugAppleFrameworkForXcode
