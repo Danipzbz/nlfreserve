@@ -23,4 +23,4 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build iOS App (Framework)
-        run: ./gradlew :composeApp:iosSimulatorArm64Binaries
+        run: ./gradlew :composeApp:linkDebugFrameworkIosSimulatorArm64
