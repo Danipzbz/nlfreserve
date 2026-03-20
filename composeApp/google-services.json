@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "753732719768",
+    "project_id": "com-dpbprog-nlfreserve",
+    "storage_bucket": "com-dpbprog-nlfreserve.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753732719768:android:fa184e4287bf625dea2ced",
+        "android_client_info": {
+          "package_name": "com.dpbprog.nlfreserve"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvGi7nU9v-5Pym089UxyaL5QS1EMcfM0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

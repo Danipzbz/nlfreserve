@@ -1,0 +1,40 @@
+[versions]
+agp = "8.5.2"
+kotlin = "2.0.21"
+compose-plugin = "1.7.0"
+android-compileSdk = "35"
+android-minSdk = "26"
+firebase-multiplatform = "2.1.0"
+kotlinx-serialization = "1.7.3"
+kotlinx-datetime = "0.6.0"
+androidx-activity = "1.9.3"
+androidx-lifecycle = "2.8.4"
+firebase-android-bom = "33.5.0"
+
+[libraries]
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose-plugin" }
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-plugin" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-plugin" }
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-plugin" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose-plugin" }
+compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-plugin" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-compose-material-iconsExtended = { module = "androidx.compose.material:material-icons-extended", version = "1.7.5" }
+firebase-multiplatform-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "firebase-multiplatform" }
+firebase-multiplatform-common = { module = "dev.gitlive:firebase-common", version.ref = "firebase-multiplatform" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+firebase-android-platform = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-android-bom" }
+firebase-android-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-gitlive-firestore = { module = "dev.gitlive:firebase-firestore", version = "1.13.0" }
+firebase-gitlive-common = { module = "dev.gitlive:firebase-common", version = "1.13.0" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
