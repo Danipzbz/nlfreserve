@@ -6,6 +6,6 @@ import androidx.compose.ui.window.CanvasBasedWindow
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     CanvasBasedWindow(canvasElementId = "ComposeTarget") {
-        App()
+        App() // Al estar en el mismo package, no necesita import
     }
 }

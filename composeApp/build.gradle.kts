@@ -57,7 +57,8 @@ kotlin {
 
         // --- CONFIGURACIÓN DE JS MAIN ---
         val jsMain by getting {
-            dependsOn(commonMain) // Aquí ya no necesitas el .get() si usas 'val commonMain' arriba
+            // Esto le dice a JS que use todo lo de commonMain
+            dependsOn(commonMain)
             dependencies {
                 implementation(compose.html.core)
                 implementation(compose.runtime)
