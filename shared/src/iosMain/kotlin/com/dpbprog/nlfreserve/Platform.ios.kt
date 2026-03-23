@@ -1,6 +1,8 @@
 package com.dpbprog.nlfreserve
 
 import platform.UIKit.UIDevice
+// Si estas lineas de firebase dan error en el IDE, no te preocupes,
+// GitHub las resolverá porque tiene Mac instalado.
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.initialize
 
@@ -10,7 +12,6 @@ class IOSPlatform: Platform {
 
 actual fun getPlatform(): Platform = IOSPlatform()
 
-// Implementación para iOS
 actual fun initFirebase() {
     Firebase.initialize()
 }
