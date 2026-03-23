@@ -15,6 +15,12 @@ kotlin {
         }
     }
 
+    // --- CAMBIO AQUÍ: Usamos JS en lugar de Wasm ---
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -36,12 +42,18 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
 
+            // Firebase vuelve aquí para que no tengas errores de imports
             api(libs.firebase.multiplatform.firestore)
             api(libs.firebase.multiplatform.common)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
             implementation("dev.gitlive:firebase-firestore:1.13.0")
             implementation("dev.gitlive:firebase-common:1.13.0")
+        }
+
+        // Configuramos la carpeta de JS
+        val jsMain by getting {
+            dependsOn(commonMain.get())
         }
     }
 }

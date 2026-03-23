@@ -9,11 +9,25 @@ plugins {
 }
 
 kotlin {
-    // ESTA ES LA PIEZA QUE FALTA:
     androidTarget {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
+    }
+
+    // --- CAMBIO A JS (IR) PARA MAYOR COMPATIBILIDAD ---
+    js(IR) {
+        moduleName = "composeApp"
+        browser {
+            commonWebpackConfig {
+                devServer = (devServer ?: org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.DevServer()).apply {
+                    static = (static ?: mutableListOf()).apply {
+                        add(project.projectDir.path + "/src/jsMain/resources")
+                    }
+                }
+            }
+        }
+        binaries.executable()
     }
 
     sourceSets {
@@ -28,10 +42,17 @@ kotlin {
             implementation(projects.shared)
             implementation(libs.kotlinx.datetime)
         }
+
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation("androidx.core:core-splashscreen:1.0.1")
+        }
+
+        // --- CONFIGURACIÓN DE JS MAIN ---
+        val jsMain by getting {
+            dependsOn(commonMain.get())
         }
     }
 }
@@ -51,7 +72,7 @@ android {
     sourceSets {
         getByName("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
-            res.srcDirs("src/androidMain/res") // ESTA LÍNEA ES LA CLAVE
+            res.srcDirs("src/androidMain/res")
         }
     }
 
@@ -63,6 +84,5 @@ android {
 
 dependencies {
     implementation(platform(libs.firebase.android.platform))
-    // Añade esto para que Firebase funcione en Android
     implementation(libs.firebase.android.analytics)
 }
