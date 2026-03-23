@@ -4,7 +4,7 @@ import androidx.compose.runtime.*
 
 @Composable
 fun App() {
-//    initFirebase()
+    initFirebase()
 
     var logged by remember { mutableStateOf(false) }
     var userDni by remember { mutableStateOf("") }

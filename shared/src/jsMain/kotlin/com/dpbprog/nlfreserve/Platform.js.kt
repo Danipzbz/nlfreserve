@@ -1,11 +1,23 @@
 package com.dpbprog.nlfreserve
 
-class JSPlatform: Platform {
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.initialize
+import dev.gitlive.firebase.FirebaseOptions
+
+class JSPlatform : Platform {
     override val name: String = "Web Browser (JavaScript)"
 }
 
 actual fun getPlatform(): Platform = JSPlatform()
 
 actual fun initFirebase() {
-    // Aquí irá la lógica de Firebase Web más adelante
+    Firebase.initialize(
+        options = FirebaseOptions(
+            apiKey = "AIzaSyBb-WfBFGxUeba0qB66LykG-jAlWbQ8PdE",
+            authDomain = "com-dpbprog-nlfreserve.firebaseapp.com",
+            projectId = "com-dpbprog-nlfreserve",
+            storageBucket = "com-dpbprog-nlfreserve.firebasestorage.app",
+            applicationId = "1:753732719768:web:e1a6ab768ce4062aea2ced" // Este es el appId
+        )
+    )
 }
