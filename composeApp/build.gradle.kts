@@ -31,28 +31,37 @@ kotlin {
     }
 
     sourceSets {
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
-            implementation(projects.shared)
-            implementation(libs.kotlinx.datetime)
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
+                implementation(projects.shared)
+                implementation(libs.kotlinx.datetime)
+            }
         }
 
 
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-            implementation("androidx.core:core-splashscreen:1.0.1")
+        val androidMain by getting {
+            dependsOn(commonMain) // Android también depende de common
+            dependencies {
+                implementation(compose.preview)
+                implementation(libs.androidx.activity.compose)
+                implementation("androidx.core:core-splashscreen:1.0.1")
+            }
         }
 
         // --- CONFIGURACIÓN DE JS MAIN ---
         val jsMain by getting {
-            dependsOn(commonMain.get())
+            dependsOn(commonMain) // Aquí ya no necesitas el .get() si usas 'val commonMain' arriba
+            dependencies {
+                implementation(compose.html.core)
+                implementation(compose.runtime)
+            }
         }
     }
 }
