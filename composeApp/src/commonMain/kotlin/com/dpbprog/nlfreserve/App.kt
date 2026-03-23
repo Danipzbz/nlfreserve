@@ -1,7 +1,6 @@
 package com.dpbprog.nlfreserve
 
 import androidx.compose.runtime.*
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun App() {
