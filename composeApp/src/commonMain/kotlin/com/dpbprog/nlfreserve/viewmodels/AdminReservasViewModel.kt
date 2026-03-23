@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.dpbprog.nlfreserve.models.Reservas
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.firestore
-import dev.gitlive.firebase.firestore.where
+import dev.gitlive.firebase.firestore.*
 import kotlinx.coroutines.launch
 
 data class UsuarioApuntado(
@@ -36,8 +36,8 @@ class AdminReservasViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 db.collection("mis_reservas")
-                    .where("fecha", equalTo = fecha)
-                    .where("hora", equalTo = hora)
+                    .where { "fecha" equalTo fecha }
+                    .where { "hora" equalTo hora }
                     .snapshots().collect { snapshot ->
                         alumnosEnSesion = snapshot.documents.map { doc ->
                             UsuarioApuntado(
@@ -56,22 +56,19 @@ class AdminReservasViewModel : ViewModel() {
     fun eliminarReservaDeAlumno(alumno: UsuarioApuntado, fecha: String, onExito: () -> Unit) {
         viewModelScope.launch {
             try {
-                // 1. Devolvemos la plaza en la tabla "reservas"
                 val sesionQuery = db.collection("reservas")
-                    .where("fecha", equalTo = fecha)
-                    .where("hora", equalTo = alumno.hora)
+                    .where { "fecha" equalTo fecha }
+                    .where { "hora" equalTo alumno.hora }
                     .get()
 
                 if (sesionQuery.documents.isNotEmpty()) {
                     val sesionRef = sesionQuery.documents[0].reference
                     db.runTransaction {
                         val snap = get(sesionRef)
-                        val plazas: Long = snap.get("plazas")
+                        val plazas: Long = snap.get("plazas") ?: 0L
                         update(sesionRef, "plazas" to (plazas + 1))
-                        // 2. Borramos la reserva
                         delete(db.collection("mis_reservas").document(alumno.idReserva))
                     }
-
                     onExito()
                 }
             } catch (e: Exception) {
@@ -85,7 +82,12 @@ class AdminReservasViewModel : ViewModel() {
             db.collection("reservas").snapshots().collect { snapshot ->
                 val todas = snapshot.documents.map { it.data<Reservas>().copy(id = it.id) }
 
-                sesionesPorDia = todas.groupBy { it.fecha }.toSortedMap()
+                // CAMBIO CLAVE PARA WEB:
+                // Sustituimos .toSortedMap() por una ordenación manual compatible con JS
+                sesionesPorDia = todas.groupBy { it.fecha }
+                    .toList()
+                    .sortedBy { it.first } // Ordena por la fecha (String)
+                    .toMap()
             }
         }
     }
